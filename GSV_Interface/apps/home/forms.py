@@ -17,8 +17,15 @@ class PostForm(forms.Form):
                 "class": "form-control"
             }
         ))
+    yearInput = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Year",
+                "class": "form-control"
+            }
+        ))
 
 
     class Meta:
         model = Post
-        fields = ('address')
+        fields = ('address','year')

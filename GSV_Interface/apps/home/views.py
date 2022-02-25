@@ -89,21 +89,21 @@ def index(request):
           print('address========',address)
           #test address = 8122 ChestnutKansas City,MO,64132
           base_url = "https://maps.googleapis.com/maps/api/geocode/json"
-          endpoint = f"{base_url}?address='8122 Chestnut Kansas City,MO,64132'&key={api_key}"
+          endpoint = f"{base_url}?address={address}&key={api_key}"
           print("endpoint is ------------",endpoint)
     # see how our endpoint includes our API key? Yes this is yet another reason to restrict the key 
           r = requests.get(endpoint)
           if r.status_code not in range(200, 299):
                return None, None
           if r.json()['status'] == 'OK':
-              print('yess 888888888888888888888888888888888888888888888888888888888888888888888888888888888')
+              print('yes')
           
           try:
               results = r.json()['results'][0]
               lat = results['geometry']['location']['lat']
               lng = results['geometry']['location']['lng']
               print(lat,lng, '*'*20)
-              my_gvs = streetview.panoids(lat,lng)
+              my_gvs = streetview.panoids(lat, lng)
               print(my_gvs, '*'*50)
               final_dict = {} 
 
@@ -120,8 +120,6 @@ def index(request):
               for image in my_gvs:
                 if 'year' in image:
                     years_found.append(image['year'])
-
-                    print("image ids .........................3333333333",image)
             
                     ### creating the year list 
                     year_list = []
@@ -147,11 +145,18 @@ def index(request):
                         final_images = final_dict[years_found[0]]
                 except:
                     pass
-                print('Image url ...................################',final_images)
-                return render(request, "home/index.html", {'final_data':final_images})
+        
+                locationData = {}
+                locationData['latitude'] = lat
+                locationData['longitude'] = lng
+                print("years found----------------",years_found)
+                
+                
+                return render(request, "home/index.html", {'final_data':final_images,'locationData':locationData,'availableYears':years_found})
 
           except:
               pass
+   
     return render(request, "home/index.html", {'final_data':{}})
     
   
