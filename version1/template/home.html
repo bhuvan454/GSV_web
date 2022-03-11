@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main>
+
+  <br> 
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <!-- Main center text and two buttons
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Album example</h1>
+        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+        <p>
+          <a href="#" class="btn btn-primary my-2">Main call to action</a>
+          <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+        </p>
+      </div>
+    </div>
+  </section> -->
+
+  
+   <!-- Search bar with forms and post request to send data backend -->
+
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <form method="GET">
+        <div class="row text-center">
+          <div class="col-lg-2"></div>
+          <div class="col-lg-6 pr-0">
+            <div class="form-group" >
+              <input type="text" class="form-control" name="address" aria-describedby="address" placeholder="Enter address">
+            </div>
+           
+          </div>
+          <div class="col-lg-2"> <input type="submit" class="btn btn-primary" value="Search" /></div>
+        </div>
+     
+        </form>
+    </div>
+  </div>
+  
+
+  <!-- Bring map into the picture -->
+
+  <br> 
+  <br>
+  <br>
+
+  
+
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-5">
+        {% if locationData %}
+        <iframe src="//maps.google.com/maps?q={{locationData.latitude}},{{locationData.longitude}}&z=15&output=embed" allowfullscreen="true" style="width: 100% !important; height: 400px;"></iframe>
+       {% endif %}
+      
+       </div> 
+        <div class="col-lg-7">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              2021
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              {% for year in availableYears %}
+              <a class="dropdown-item" href="#">{{year}}</a>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="row">
+            {% for year in final_data %}
+            <div class="col-lg-4">
+              <div class="card"  >
+                <img class="card-img-top" src="{{year.img_url}}" alt="Card image cap" height="300">
+                </div>
+              </div>
+          {% endfor %}
+          </div>
+        
+        </div>
+    </div>
+  </div>
+
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+
+  <!--  Images or map data for iteration over the loop -->
+  <!-- <div class="album py-5 bg-light">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+
+{% for post in posts %}
+        <div class="col">
+          <div class="card shadow-sm">
+          <img src="{{post.image.url}}" />
+            <div class="card-body">
+              <p>{{post.title}}</p>
+              <p class="card-text">{{post.content}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a href="{{post.get_absolute_url}}" role="button" class="btn btn-primary btn-sm">View</a>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+        </div>
+{% endfor %} 
+
+      </div>
+    </div>
+  </div> -->
+</main>
+{% endblock content %}

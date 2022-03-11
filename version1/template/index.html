@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main>
+
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Album example</h1>
+        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+        <p>
+          <a href="#" class="btn btn-primary my-2">Main call to action</a>
+          <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  
+   <!-- Search bar with forms and post request to send data backend -->
+
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <form action = "/search/" method="GET">
+        <div class="row text-center">
+          <div class="col-lg-2"></div>
+          <div class="col-lg-6 pr-0">
+            <div class="form-group" >
+              <input type="text" class="form-control" name="address" aria-describedby="address" placeholder="Enter address">
+            </div>
+           
+          </div>
+          <div class="col-lg-2"> <input type="submit" class="btn btn-primary" value="Search" /></div>
+        </div>
+     
+        </form>
+    </div>
+  </div>
+  
+<br>
+<br>
+<br>
+
+  <div class="container-fluid">
+       <div id="map" style="width: 100% !important; height: 800px;"></div>
+       
+       <script src="http://maps.google.com/maps/api/js?sensor=false"
+       type="text/javascript"></script>
+       
+       <script type="text/javascript">
+       
+       var locations = (("{{locations_data}}").replace(/&(l|g|quo)t;/g, function(a,b){
+        return {
+        l   : '<',
+        g   : '>',
+        quo : '"'}[b];})); 
+        
+        var locations = JSON.parse(locations)
+        
+        
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 10,
+            allowfullscreen: "false",
+            center: new google.maps.LatLng((39.1168476).toString(), (-94.5158182).toString()),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+        
+        var infowindow = new google.maps.InfoWindow();
+        var marker, i;
+        
+        for (i = 0; i < locations.length; i++) {  
+            marker = new google.maps.Marker({
+            position: new google.maps.LatLng((locations[i].lat_pin).toString(),
+                                         (locations[i].long_pin).toString()),
+            map: map
+            });
+
+
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i].address);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+     }
+      </script>
+      
+    </div>
+
+
+
+  <!--  Images or map data for iteration over the loop -->
+  <!-- <div class="album py-5 bg-light">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+
+{% for post in posts %}
+        <div class="col">
+          <div class="card shadow-sm">
+          <img src="{{post.image.url}}" />
+            <div class="card-body">
+              <p>{{post.title}}</p>
+              <p class="card-text">{{post.content}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a href="{{post.get_absolute_url}}" role="button" class="btn btn-primary btn-sm">View</a>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+        </div>
+{% endfor %} 
+
+      </div>
+    </div>
+  </div> -->
+</main>
+{% endblock content %}

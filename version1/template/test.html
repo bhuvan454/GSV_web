@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<div> 
+  <h1>test data </h1>
+  <br>
+  <p>{{pinpoint}}</p>
+  <br>
+  <p>{{street}}</p>
+  <br>
+  {% for lat,long in pinpoint %}
+     <p>{{lat}},{{long}}</p>
+  {% endfor %}
+
+  <br> 
+  <br>
+
+  {% for lat,long in pinpoint %}
+  <iframe src="//maps.google.com/maps?q={{lat}},{{long}}&z=15&output=embed" allowfullscreen="true" style="width: 100% !important; height: 400px;"></iframe>
+  {% endfor %}
+ 
+  <iframe src="//maps.google.com/maps?q={{lat}},{{long}}&z=15&output=embed" allowfullscreen="true" style="width: 100% !important; height: 400px;"></iframe>  
+    
+  <h1> Show data set </h1>
+</div>
+</body>
+</html>
